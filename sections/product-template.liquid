@@ -133,9 +133,19 @@
 
     <div class="grid__item {{ product_description_width }}">
       <div class="product-single__meta">
+        {% liquid 
+        assign hasAmazonLink = false
+        for tags in product.tags 
+          if tags contains 'amazon_link'
+            assign hasAmazonLink = true
+            assign tagLinks = tags | split: '!'
+            assign amzLink = tagLinks[1]
+          endif
+        endfor %}
 
         <h1 class="product-single__title">{{ product.title }}</h1>
-        <div>⭐⭐⭐⭐⭐ </div>
+        <p>{{amzLink}}</p>
+        <div id="fake_stars">⭐⭐⭐⭐⭐ </div>
         <script>window.performance.mark('debut:product:title_visible');</script>
 
           <div class="product__price">
