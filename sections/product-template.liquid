@@ -145,6 +145,22 @@
 
         <h1 class="product-single__title">{{ product.title }}</h1>
         <p>{{amzLink}}</p>
+        {% if hasAmazonLink %}
+          <style>
+            div#fake_stars{ display: none;  }
+            div.product__price {  display: none;  }
+            button.product-form__cart-submit { display: none;  }
+            button.shopify-playment-button__button { display: none;  }
+            button.amazonButton {
+              width: 100%;
+              color: 
+            }
+          </style>
+        {% else %}
+          <style>
+            a.amazonButton {  display: none;  }
+          </style>
+        {% endif %}
         <div id="fake_stars">⭐⭐⭐⭐⭐ </div>
         <script>window.performance.mark('debut:product:title_visible');</script>
 
@@ -228,6 +244,10 @@
                 {%- if section.settings.enable_payment_button %} product-form__item--payment-button {%- endif -%}
                 {%- if product.has_only_default_variant %} product-form__item--no-variants {%- endif -%}"
               >
+                
+                <a class="amazonButton" href="{{ amzLink }}" target="_blank">
+                  <button class="btn btn--secondary-accent amazonButton" formtarget="_blank" type="button" name="Amazon">See on Amazon</button>
+                </a>
                 <button type="submit" name="add"
                   {% unless current_variant.available %} aria-disabled="true"{% endunless %}
                   aria-label="{% unless current_variant.available %}{{ 'products.product.sold_out' | t }}{% else %}{{ 'products.product.add_to_cart' | t }}{% endunless %}"
@@ -245,9 +265,11 @@
                     {% include 'icon-spinner' %}
                   </span>
                 </button>
+                {% unless hasAmazonLink %}
                 {% if section.settings.enable_payment_button %}
                   {{ form | payment_button }}
                 {% endif %}
+                {% endunless %}
               </div>
             </div>
           {% endform %}
