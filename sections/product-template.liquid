@@ -136,25 +136,22 @@
         {% liquid 
         assign hasAmazonLink = false
         for tags in product.tags 
-          if tags contains 'amazon_link'
+          if tags contains 'amazon_'
             assign hasAmazonLink = true
-            assign tagLinks = tags | split: '!'
+            assign tagLinks = tags | split: '_'
             assign amzLink = tagLinks[1]
           endif
         endfor %}
 
         <h1 class="product-single__title">{{ product.title }}</h1>
-        <p>{{amzLink}}</p>
+        <script>window.performance.mark('debut:product:title_visible');</script>
         {% if hasAmazonLink %}
           <style>
             div#fake_stars{ display: none;  }
             div.product__price {  display: none;  }
             button.product-form__cart-submit { display: none;  }
             button.shopify-playment-button__button { display: none;  }
-            button.amazonButton {
-              width: 100%;
-              color: 
-            }
+            button.amazonButton { width: 100%;  }
           </style>
         {% else %}
           <style>
@@ -162,7 +159,7 @@
           </style>
         {% endif %}
         <div id="fake_stars">⭐⭐⭐⭐⭐ </div>
-        <script>window.performance.mark('debut:product:title_visible');</script>
+        
 
           <div class="product__price">
             {% include 'product-price', variant: current_variant, show_vendor: section.settings.show_vendor %}
