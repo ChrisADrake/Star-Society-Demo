@@ -1,4 +1,4 @@
-<h3 style="text-align:center">Instagram</h3>
+<h3 style="text-align:center">{{section.settings.gallery-header}}</h3>
 <div class="grid grid--no-gutters image-bar image-bar--{{ section.settings.section_height }}">
   {% case section.blocks.size %}
     {% when 1 %}
@@ -91,13 +91,23 @@
   "max_blocks": 4,
   "settings": [
     {
+      "type": "text",
+      "id": "gallery-header",
+      "label":{
+        "en": "Gallery Title",
+        "es": "Título de la galería",
+        "fr": "Titre de la galerie",
+        "ja": "ギャラリーのタイトル"
+      }
+    },
+    {
       "type": "select",
       "id": "section_height",
       "label": {
         "cs": "Výška sekce",
         "da": "Højde på afsnit",
         "de": "Abschnittshöhe",
-        "en": "Section height",
+        "en": "Section Height",
         "es": "Altura de la sección",
         "fi": "Osan korkeus",
         "fr": "Hauteur de la section",
