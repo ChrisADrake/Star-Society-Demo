@@ -1,29 +1,62 @@
-<h1>{{section.settings.heading}}</h1>
+<div class="faq">
+  <h1>{{ section.settings.heading }}</h1>
 
-<h3>{{section.settings.Question}}</h3>
-<p>{{section.settings.Answer}}</p>
+  {% for block in section.blocks %}
+    {% if block.type == "FAQ" %}
+      <div class="question">
+        <input
+          type="checkbox"
+          id="question-{{ forloop.index }}"
+          class="question-toggle">
+        <label for="question-{{ forloop.index }}" class="question-label">{{ block.settings.question }}</label>
+        <div class="answer">
+          {{ block.settings.answer }}</div>
+      </div>
+    {% elsif block.type == "FAQ-Section" %}
+      <h4>{{ block.settings.faq-section }}</h4>
+    {% endif %}
 
+  {% endfor %}
+
+
+</div>
 
 {% schema %}
-    {
-        "name":"Questions",
-        "settings":[
-            {
-                "type":"text",
-                "label":"Heading",
-                "id":"heading"
-            },
-            {
-                "type":"text",
-                "label":"Question",
-                "id":"Question"
-
-            },
-            {
-                "type":"textarea",
-                "label":"Answer",
-                "id":"Answer"
-            }
+  {
+    "name": "FAQ List",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Heading",
+        "id": "heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "FAQ",
+        "name": "FAQ",
+        "settings": [
+          {
+            "type": "text",
+            "label": "Question",
+            "id": "question"
+          }, {
+            "type": "richtext",
+            "label": "Answer",
+            "id": "answer"
+          }
         ]
-    }
+      }, {
+        "type": "FAQ-Section",
+        "name": "FAQ Section",
+        "settings": [
+          {
+            "type": "text",
+            "label": "FAQ Section",
+            "id": "faq-section"
+          }
+        ]
+      }
+    ]
+  }
 {% endschema %}

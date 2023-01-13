@@ -188,9 +188,6 @@
             }
           </style>
         {% endif %}
-        <div id="fake_stars">⭐⭐⭐⭐⭐
-        </div>
-
 
         <div class="product__price">
           {% include 'product-price', variant: current_variant, show_vendor: section.settings.show_vendor %}
@@ -361,10 +358,32 @@
         data-product-title="{{ product.title | escape }}"
         data-has-only-default-variant="{{ product.has_only_default_variant }}"
         data-base-url="{{ shop.url }}{{ routes.root_url }}"></div>
-
-      <div class="product-single__description rte">
-        {{ product.description }}
+      <div class="container">
+        <div class="selector">
+          <div class="tab tab-active">
+            Description
+          </div>
+          <div class="tab">
+            Details
+          </div>
+          <div class="tab">
+            Shipping
+          </div>
+        </div>
+        <div class="content">
+          <div id="Description" class="content-body show-active">
+            {{ product.description }}
+          </div>
+          <div id="Details" class="content-body">
+            {{ product.metafields.description.details }}</div>
+          <div id="Shipping" class="content-body">
+            {{ product.metafields.global.shipping }}
+          </div>
+        </div>
       </div>
+      {% comment %} <div class="product-single__description rte">
+      {{ product.description }}
+      </div> {% endcomment %}
 
       {% if section.settings.show_share_buttons %}
         {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product.featured_media %}
